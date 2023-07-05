@@ -22,8 +22,8 @@ st.divider()
 
 # Load from GitHub
 # Note that the file URL needs to be for the `raw` file
-url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/my_mnist.h5"
-file_path = keras.utils.get_file("my_mnist.h5", origin=url)
+url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/my_mnist.keras"
+file_path = keras.utils.get_file("my_mnist.keras", origin=url)
 model = keras.models.load_model(file_path)
 # Load image
 img_url = (
