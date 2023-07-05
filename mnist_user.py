@@ -22,8 +22,8 @@ st.divider()
 
 # Load from GitHub
 # Note that the file URL needs to be for the `raw` file
-url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/my_mnist.keras"
-file_path = keras.utils.get_file("my_mnist.keras", origin=url)
+url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/my_mnist.h5"
+file_path = keras.utils.get_file("my_mnist.h5", origin=url)
 model = keras.models.load_model(file_path)
 # Load image
 img_url = (
@@ -33,6 +33,8 @@ st.header("Model Overview")
 urllib.request.urlretrieve(img_url, "mnist_overview.png")
 img = Image.open("mnist_overview.png")
 st.image(img)
+
+model.summary()
 
 # User Input
 selected = st.selectbox("Select Digit [0-9]", [i for i in range(10)])
