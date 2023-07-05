@@ -53,9 +53,9 @@ Y_test_label = to_categorical(Y_test)
 # DL model
 model = Sequential(
     [
-        Dense(units=784, input_shape=(784,), activation="relu"),
-        Dense(units=16, activation="sigmoid"),
-        Dense(units=16, activation="sigmoid"),
+        Dense(units=784, input_shape=(784,), activation="sigmoid"),
+        Dense(units=16, activation="relu"),
+        Dense(units=16, activation="relu"),
         Dense(units=10, activation="softmax"),
     ]
 )
@@ -181,4 +181,4 @@ st.write(cm)
 
 # Save model
 if st.button("Save model"):
-    model.save("my_mnist.keras", overwrite=True)
+    model.save("my_mnist.h5", overwrite=True)

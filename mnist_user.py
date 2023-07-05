@@ -3,9 +3,10 @@ from tensorflow import keras
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from PIL import Image
+import urllib.request
 
 # import os
-import io
 
 st.title("MNIST Handwritten Digit Prediction")
 st.write("Now you can run MNIST yourself!")
@@ -24,8 +25,14 @@ st.divider()
 url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/my_mnist.h5"
 file_path = keras.utils.get_file("my_mnist.h5", origin=url)
 model = keras.models.load_model(file_path)
-# Load
-
+# Load image
+img_url = (
+    "https://github.com/Purinat33/streamlit_stock_price/raw/master/mnist_overview.png"
+)
 st.header("Model Overview")
+urllib.request.urlretrieve(img_url, "mnist_overview.png")
+img = Image.open("mnist_overview.png")
+st.image(img)
 
+# User Input
 selected = st.selectbox("Select Digit [0-9]", [i for i in range(10)])
