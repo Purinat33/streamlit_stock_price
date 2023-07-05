@@ -8,7 +8,7 @@ import urllib.request
 from keras.datasets import mnist
 import random
 from keras.utils import to_categorical
-import pickle
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 # import os
 
@@ -90,6 +90,13 @@ results = pd.DataFrame(predict_result, index=labels, columns=["Percentage"])
 results.index.name = "Label"
 st.write(results)
 
+loss = model.evaluate(X_test_re, Y_test_re)[0]
+accuracy = round(model.evaluate(X_test_re, Y_test_re)[1] * 100, 3)
+
+st.write(f"Loss: {loss}")
+st.write(f"Accuracy: {accuracy}%")
+
+
 # Plot the label
 fig_res, ax_res = plt.subplots()
 fig_res.suptitle(
@@ -103,6 +110,31 @@ st.pyplot(fig_res)
 
 st.divider()
 st.header("Model Performance Overview")
+# st.subheader(f"Loss: {model.evaluate(X_test_re, Y_test_re)[0]}")
+# st.subheader(f"Accuracy: {model.evaluate(X_test_re, Y_test_re)[1]}")
 
-history = model.history
-model_history = pd.DataFrame(history)
+y_true = Y_test
+
+y_pred = model.predict(X_test_re)
+y_pred = y_pred.argmax(axis=1)
+
+cm = confusion_matrix(y_true, y_pred)
+dist = ConfusionMatrixDisplay(
+    confusion_matrix=cm, display_labels=[i for i in range(10)]
+)
+
+fig, ax = plt.subplots()
+fig.suptitle("Confusion Matrix")
+dist.plot(ax=ax)
+st.pyplot(fig)
+
+# Load pickle history file
+# url = "https://github.com/Purinat33/streamlit_stock_price/raw/master/history.pkl"
+# file_path = "history.pkl"
+# urllib.request.urlretrieve(url, file_path)
+
+# # Load the saved history
+# with open(file_path, "rb") as file:
+#     history_dict = pickle.load(file)
+
+# model_history = pd.DataFrame(history_dict)
