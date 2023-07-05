@@ -8,6 +8,7 @@ import urllib.request
 from keras.datasets import mnist
 import random
 from keras.utils import to_categorical
+import pickle
 
 # import os
 
@@ -102,3 +103,6 @@ st.pyplot(fig_res)
 
 st.divider()
 st.header("Model Performance Overview")
+
+history = model.history
+model_history = pd.DataFrame(history)
